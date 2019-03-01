@@ -34,6 +34,12 @@ int main()
 			Result2.ShowRecords();
 			break;
 		}
+		case '3':
+		{
+			Task2 & Result3 = Task2::OpenFile();
+			Task2::FindAndShowTripsByArrivalTime(Result3);
+			break;
+		}
 		case 'й':
 			cout << "Закрытие программы" << endl;
 			exit(EXIT_SUCCESS);

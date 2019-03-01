@@ -1,12 +1,34 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
 class Task2
 {
 public:
+
+	struct Trip
+	{
+		unsigned int Number;
+		string Punkt;
+		float TimeIn;
+		float TimeOut;
+
+		void Show() {
+			cout << "номер рейса: " << Number;
+			cout << "Пункт назначения: " << Punkt;
+			cout << "Время прибытия: " << TimeIn;
+			cout << "Время вылета: " << TimeOut << endl;
+		}
+
+		inline bool IsArrivalTimeBetween(const float & arrivalTimeStart, const float & arrivalTimeEnd) {
+			return TimeIn >= arrivalTimeStart && TimeIn <= arrivalTimeEnd;
+		}
+	};
+
 	Task2(string filename) {
 		filename_ = filename + ".txt";
 		CountRecords();
@@ -28,19 +50,37 @@ public:
 		return (*result);
 	}
 
+	vector<Trip> FindTripsInTimeRange(const float & arrivalTimeStart, const float & arrivalTimeEnd) const
+	{
+		vector<Trip> trips;
+		for (size_t i = 0; i < records_count_; i++)
+		{
+			if (newTrip_[i].IsArrivalTimeBetween(arrivalTimeStart, arrivalTimeEnd))
+				trips.push_back(newTrip_[i]);
+		}
+		return trips;
+	}
+
+	static void FindAndShowTripsByArrivalTime(const Task2 & fileForSearch) {
+		float timeStart, timeEnd;
+		cout << "Введите промежуток времени прибытия" << endl;
+		cout << "Начало: ";
+		cin >> timeStart;
+		cout << "Конец: ";
+		cin >> timeEnd;
+		vector<Trip> findedTrips = fileForSearch.FindTripsInTimeRange(timeStart, timeEnd);
+		for (Trip trip : findedTrips)
+			trip.Show();
+		cout << endl;
+
+	}
+
 	void ShowRecords() {
 		for (size_t i = 0; i < records_count_; i++)
-			cout << " " << newTrip_[i].Number << " " << newTrip_[i].Punkt << " " << newTrip_[i].TimeIn << " " << newTrip_[i].TimeOut << endl;
+			newTrip_[i].Show();
 	}
 private:
 
-	typedef struct
-	{
-		unsigned int Number;
-		string Punkt;
-		float TimeIn;
-		float TimeOut;
-	} Trip;
 
 
 	void CountRecords() {
@@ -58,8 +98,4 @@ private:
 	string text;
 	fstream file_;
 
-	void Search()
-	{
-		cin >> time;
-	}
 };
