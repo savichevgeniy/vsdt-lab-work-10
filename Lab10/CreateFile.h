@@ -14,7 +14,6 @@ public:
 
 		Create();
 		FillFile();
-		/*SearchTrip(MyFileName);*/
 		
 	}
 
@@ -67,25 +66,4 @@ private:
 
 	fstream newFile;
 	string fileName;
-
-	/*void SearchTrip(string FileName)
-	{
-		system("cls");
-		key = 0;
-		cout << "Хотите выбрать рейс? 1 - Да\\2 - Нет" << endl; cin >> key;
-		switch (key)
-		{
-		case 1:
-			cout << "Введите время прибытия: "; cin >> time;
-			for (int i = 0; i < count; i++)
-			{
-				if (NewTrip[i].TimeOut > time)
-				{
-					printf("Вам подходит рейс №%i\n", NewTrip[i].Number);
-					cout << "Информация в файле: " << FileName << endl;
-				}
-			}
-			getchar();
-		}
-	}*/
 };

@@ -18,10 +18,10 @@ public:
 		float TimeOut;
 
 		void Show() {
-			cout << "номер рейса: " << Number;
-			cout << "Пункт назначения: " << Punkt;
-			cout << "Время прибытия: " << TimeIn;
-			cout << "Время вылета: " << TimeOut << endl;
+			cout << "номер рейса: " << Number << "  ";
+			cout << "Пункт назначения: " << Punkt << "  ";
+			cout << "Время прибытия: " << TimeIn << "  ";
+			cout << "Время вылета: " << TimeOut << "  " << endl;
 		}
 
 		inline bool IsArrivalTimeBetween(const float & arrivalTimeStart, const float & arrivalTimeEnd) {
