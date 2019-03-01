@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CreateFile.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="OpenFile.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
