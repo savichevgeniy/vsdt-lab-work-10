@@ -7,13 +7,31 @@ using namespace std;
 class Task2
 {
 public:
-	void ShowResult()
-	{
-		cout << "¬ведите название файла: "; cin >> fileName;
-
-		OpenFile(fileName);
+	Task2(string filename) {
+		filename_ = filename + ".txt";
+		CountRecords();
+		newTrip_ = new Trip[records_count_];
+		file_.open(filename_, fstream::in | fstream::binary);
+		file_.read((char*)newTrip_, sizeof(Trip)*records_count_);
+		file_.close();
 	}
 
+	~Task2() {
+		delete[records_count_] newTrip_;
+	}
+
+
+	static Task2 & OpenFile() {
+		string filename = "";
+		cout << "¬ведите название файла: "; cin >> filename;
+		Task2 * result = new Task2(filename);
+		return (*result);
+	}
+
+	void ShowRecords() {
+		for (size_t i = 0; i < records_count_; i++)
+			cout << " " << newTrip_[i].Number << " " << newTrip_[i].Punkt << " " << newTrip_[i].TimeIn << " " << newTrip_[i].TimeOut << endl;
+	}
 private:
 
 	typedef struct
@@ -24,32 +42,24 @@ private:
 		float TimeOut;
 	} Trip;
 
-	Trip* NewTrip;
 
-	string text;
-	string fileName;
-
-	void OpenFile(string name)
-	{
-		name += ".txt";
-		fstream file;
-
-
-		ifstream fileinfo(name, ios::binary | ios::ate);
-		auto filesize = fileinfo.tellg();
-		fileinfo.close();
-		size_t records_count = filesize / sizeof(Trip);
-		//
-		NewTrip = new Trip[records_count];
-
-		file.open(name, fstream::in | fstream::binary);
-		file.read((char*)NewTrip, sizeof(Trip)*records_count);
-		file.close();
-
-		
-
-		for (int i = 0; i < records_count; i++)
-			cout << " " << NewTrip[i].Number << " " << NewTrip[i].Punkt << " " << NewTrip[i].TimeIn << " " << NewTrip[i].TimeOut << endl;
+	void CountRecords() {
+		ifstream fileInfo(filename_, ios::binary | ios::ate);
+		size_t tripSize = sizeof(Trip);
+		auto filesize = fileInfo.tellg();
+		fileInfo.close();
+		records_count_ = filesize / tripSize;
 	}
 
+	string filename_ = "";
+	size_t records_count_ = 0;
+	int time = 0;
+	Trip* newTrip_;
+	string text;
+	fstream file_;
+
+	void Search()
+	{
+		cin >> time;
+	}
 };

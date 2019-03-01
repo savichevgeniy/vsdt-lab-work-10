@@ -30,8 +30,8 @@ int main()
 		}
 		case '2':
 		{
-			Task2 Result2;
-			Result2.ShowResult();
+			Task2 & Result2 = Task2::OpenFile();
+			Result2.ShowRecords();
 			break;
 		}
 		case 'й':
