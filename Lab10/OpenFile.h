@@ -39,7 +39,7 @@ private:
 		auto filesize = fileinfo.tellg();
 		fileinfo.close();
 		size_t records_count = filesize / sizeof(Trip);
-
+		//
 		NewTrip = new Trip[records_count];
 
 		file.open(name, fstream::in | fstream::binary);
